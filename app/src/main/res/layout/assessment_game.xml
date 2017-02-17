@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test.com.androidtemplates.util.CustomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+    </RelativeLayout>
+
+
+    <ImageButton
+        android:id="@+id/score_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5sp"
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:tint="#2fe7c2"
+            android:src="@mipmap/ic_settings_black_48dp" />
+
+</test.com.androidtemplates.util.CustomLayout>

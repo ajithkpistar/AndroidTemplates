@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <link.fls.swipestack.SwipeStack
+        android:id="@+id/swipeStack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20sp"
+        android:paddingLeft="2sp"
+        android:paddingRight="2sp"
+        android:paddingTop="10sp"
+        app:paddingStart="0dp"
+        app:stack_rotation="0"
+        app:stack_size="3"
+        app:stack_spacing="12dp"
+        app:swipe_rotation="50" />
+
+
+
+</RelativeLayout>

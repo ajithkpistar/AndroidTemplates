@@ -1,0 +1,33 @@
+<test.com.androidtemplates.util.CustomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80cbc4">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/giphy" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button_close"
+        android:layout_below="@+id/gif_image" />
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/button_close"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13sp"
+        android:src="@drawable/next_button_icon" />
+
+
+</test.com.androidtemplates.util.CustomLayout>

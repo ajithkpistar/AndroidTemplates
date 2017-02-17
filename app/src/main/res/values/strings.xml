@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AndroidTemplates</string>
+    <string name="server_ip">http://beta.talentify.in:8339/</string>
+    <string name="resources_fetch_ip">http://beta.talentify.in:8339/</string>
+</resources>
