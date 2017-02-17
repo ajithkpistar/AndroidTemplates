@@ -504,7 +504,7 @@ public class ASSESSMENT_GAME extends Fragment implements View.OnDragListener, Vi
 
         for (Integer key : card_entity.getOptions().keySet()) {
             AudioPlayerUtil audioPlayerUtil = playerUtilHashMap.get(card_entity.getOptions().get(key).getId());
-            if (audioPlayerUtil.isChildPlaying()) {
+            if (audioPlayerUtil!=null && audioPlayerUtil.isChildPlaying()) {
                 audioPlayerUtil.setChildPlaying(false);
                 audioPlayerUtil.resumePlay();
             }

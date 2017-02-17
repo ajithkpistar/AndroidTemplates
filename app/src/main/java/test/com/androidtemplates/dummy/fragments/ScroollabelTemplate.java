@@ -182,10 +182,19 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
                 clickable = true;
             }
 
-            int startX = (int) gridWidth * Integer.parseInt(card_entity.getGrid().split(",")[0]);
-            int startY = (int) gridHeight * Integer.parseInt(card_entity.getGrid().split(",")[1]);
-            int endX = (int) gridWidth * Integer.parseInt(card_entity.getGrid().split(",")[2]);
-            int endY = (int) gridHeight * Integer.parseInt(card_entity.getGrid().split(",")[3]);
+            int startX = 0;
+            int startY = 0;
+            int endX = 0;
+            int endY = 0;
+
+            try {
+                startX = (int) gridWidth * ((Integer.parseInt(card_entity.getGrid().split(",")[0])) % xCount);
+                startY = (int) gridHeight * ((Integer.parseInt(card_entity.getGrid().split(",")[1])) % yCount);
+                endX = (int) gridWidth * Integer.parseInt(card_entity.getGrid().split(",")[2]);
+                endY = (int) gridHeight * Integer.parseInt(card_entity.getGrid().split(",")[3]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             CustomLayout relativeLayout;
             if (clickable) {
@@ -203,10 +212,18 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
 
             for (Integer key : card_entity.getOptions().keySet()) {
 
-                int opt_startX = (int) gridWidth * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[0]);
-                int opt_startY = (int) gridHeight * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[1]);
-                int opt_endX = (int) gridWidth * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[2]);
-                int opt_endY = (int) gridHeight * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[3]);
+                int opt_startX = 0;
+                int opt_startY = 0;
+                int opt_endX = 0;
+                int opt_endY = 0;
+                try {
+                    opt_startX = (int) gridWidth * ((Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[0])) % xCount);
+                    opt_startY = (int) gridHeight * ((Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[1])) % yCount);
+                    opt_endX = (int) gridWidth * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[2]);
+                    opt_endY = (int) gridHeight * Integer.parseInt(card_entity.getOptions().get(key).getGrid().split(",")[3]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 CustomLayout customLayout;
                 if (clickable) {
@@ -561,7 +578,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
         for (Entity card_entity : presentation_canvas.getQuestions()) {
             for (Integer key : card_entity.getOptions().keySet()) {
                 AudioPlayerUtil audioPlayerUtil = playerUtilHashMap.get(card_entity.getOptions().get(key).getId());
-                if (audioPlayerUtil.isChildPlaying()) {
+                if (audioPlayerUtil!=null&&audioPlayerUtil.isChildPlaying()) {
                     audioPlayerUtil.setChildPlaying(false);
                     audioPlayerUtil.resumePlay();
                 }
