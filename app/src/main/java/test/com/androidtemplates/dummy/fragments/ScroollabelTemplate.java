@@ -306,7 +306,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
             MediaPlayer mediaPlayer = playerUtilHashMap.get(entityOptionHashMap.get(view).getId()).getMediaPlayer();
             if (mediaPlayer != null) {
 
-                if(presenetationAudioUtil!=null) {
+                if (presenetationAudioUtil != null) {
                     presenetationAudioUtil.pausePlay();
                     presenetationAudioUtil.setChildPlaying(true);
                 }
@@ -318,7 +318,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         System.out.println("Stopppppppppppppped Option audio");
-                        if(presenetationAudioUtil!=null) {
+                        if (presenetationAudioUtil != null) {
                             presenetationAudioUtil.setChildPlaying(false);
                             presenetationAudioUtil.resumePlay();
                         }
@@ -340,15 +340,16 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
         }
     }
 
-    private void showDiloagMessage(String message, boolean action, final EntityOption entityOption) {
+    private void showDiloagMessage(final String message, boolean action, final EntityOption entityOption) {
+
+        HashMap<String, String> inputValues = new HashMap<>();
 
         if (entityOption.getEvaluationScript() != null) {
-            evaluateString.evaluateExpression(entityOption.getEvaluationScript());
+            evaluateString.evaluateExpression(entityOption.getEvaluationScript(), inputValues);
         }
 
-        View view; // Creating an instance for View Object
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.message_dilog, null);
+        View view = inflater.inflate(R.layout.message_dilog, null);
 
         String title;
 
@@ -361,27 +362,32 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
             color = R.color.failure_color;
         }
 
-        customDialog.setView(view)
-                .setTopColorRes(color)
-                .setTitle(title)
-                .setMessage(message)
-                .setIcon(R.drawable.ic_assignment_white_36dp)
-                .show();
+        if (message != null && !message.equalsIgnoreCase("")) {
+            customDialog.setView(view)
+                    .setTopColorRes(color)
+                    .setTitle(title)
+                    .setMessage(message)
+                    .setIcon(R.drawable.ic_assignment_white_36dp)
+                    .show();
 
-        new CountDownTimer(1000, 500) {
+            new CountDownTimer(1000, 500) {
 
-            @Override
-            public void onTick(long l) {
+                @Override
+                public void onTick(long l) {
 
-            }
+                }
 
-            @Override
-            public void onFinish() {
-                customDialog.dismiss();
-                updateUI(entityOption);
-
-            }
-        }.start();
+                @Override
+                public void onFinish() {
+                    if (message != null && !message.equalsIgnoreCase("")) {
+                        customDialog.dismiss();
+                    }
+                    updateUI(entityOption);
+                }
+            }.start();
+        } else {
+            updateUI(entityOption);
+        }
 
     }
 
@@ -481,7 +487,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
 
             case DragEvent.ACTION_DRAG_ENTERED:
 
-                                break;
+                break;
 
             case DragEvent.ACTION_DRAG_EXITED:
                 break;
@@ -545,7 +551,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
                 e.printStackTrace();
             }
             return true;
-        }else if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
             return true;
         } else {
@@ -562,9 +568,6 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
                     questionCard = card_entity;
                 }
             }
-            view.setVisibility(View.INVISIBLE);
-
-
             evaluateAnswer(view, questionCard);
 
         } catch (Exception e) {
@@ -578,7 +581,7 @@ public class ScroollabelTemplate extends Fragment implements View.OnDragListener
         for (Entity card_entity : presentation_canvas.getQuestions()) {
             for (Integer key : card_entity.getOptions().keySet()) {
                 AudioPlayerUtil audioPlayerUtil = playerUtilHashMap.get(card_entity.getOptions().get(key).getId());
-                if (audioPlayerUtil!=null&&audioPlayerUtil.isChildPlaying()) {
+                if (audioPlayerUtil != null && audioPlayerUtil.isChildPlaying()) {
                     audioPlayerUtil.setChildPlaying(false);
                     audioPlayerUtil.resumePlay();
                 }

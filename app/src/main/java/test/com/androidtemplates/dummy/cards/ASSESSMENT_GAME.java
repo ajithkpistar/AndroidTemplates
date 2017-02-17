@@ -358,13 +358,13 @@ public class ASSESSMENT_GAME extends Fragment implements View.OnDragListener, Vi
 
     private void showDiloagMessage(final String message, boolean action, final EntityOption entityOption) {
 
+        HashMap<String, String> inputValues = new HashMap<>();
         if (entityOption.getEvaluationScript() != null) {
-            NonScrollableTemplate.evaluateString.evaluateExpression(entityOption.getEvaluationScript());
+            NonScrollableTemplate.evaluateString.evaluateExpression(entityOption.getEvaluationScript(), inputValues);
         }
 
-        View view; // Creating an instance for View Object
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.message_dilog, null);
+        View view = inflater.inflate(R.layout.message_dilog, null);
 
         String title;
 
@@ -377,7 +377,7 @@ public class ASSESSMENT_GAME extends Fragment implements View.OnDragListener, Vi
             color = R.color.failure_color;
         }
 
-        if(message!=null && !message.equalsIgnoreCase("")) {
+        if (message != null && !message.equalsIgnoreCase("")) {
             customDialog.setView(view)
                     .setTopColorRes(color)
                     .setTitle(title)
@@ -394,13 +394,13 @@ public class ASSESSMENT_GAME extends Fragment implements View.OnDragListener, Vi
 
                 @Override
                 public void onFinish() {
-                    if(message!=null && !message.equalsIgnoreCase("")) {
+                    if (message != null && !message.equalsIgnoreCase("")) {
                         customDialog.dismiss();
                     }
                     updateUI(entityOption);
                 }
             }.start();
-        }else{
+        } else {
             updateUI(entityOption);
         }
     }
@@ -504,7 +504,7 @@ public class ASSESSMENT_GAME extends Fragment implements View.OnDragListener, Vi
 
         for (Integer key : card_entity.getOptions().keySet()) {
             AudioPlayerUtil audioPlayerUtil = playerUtilHashMap.get(card_entity.getOptions().get(key).getId());
-            if (audioPlayerUtil!=null && audioPlayerUtil.isChildPlaying()) {
+            if (audioPlayerUtil != null && audioPlayerUtil.isChildPlaying()) {
                 audioPlayerUtil.setChildPlaying(false);
                 audioPlayerUtil.resumePlay();
             }

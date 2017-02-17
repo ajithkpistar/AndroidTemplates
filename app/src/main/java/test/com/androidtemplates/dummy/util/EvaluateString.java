@@ -7,6 +7,7 @@ package test.com.androidtemplates.dummy.util;
 
 import com.udojava.evalex.Expression;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,16 +33,20 @@ public class EvaluateString {
         }
     }
 
-    public Double evaluateExpression(String expression) {
+    public Double evaluateExpression(String expression, HashMap<String, String> inputValues) {
         Double result = 0.0;
         try {
-
             for (String evaluateString : expression.split("!#")) {
+                if (inputValues.size() > 0) {
+                    for (String key : inputValues.keySet()) {
+                        evaluateString.replaceAll(key, inputValues.get(key));
+                    }
+                }
 
                 Expression exp = new Expression(evaluateString.split("=")[1]).setPrecision(128);
 
                 for (String key : integerIntegerHashMap.keySet()) {
-                    exp = exp.with(key, integerIntegerHashMap.get(key).getValue()+"");
+                    exp = exp.with(key, integerIntegerHashMap.get(key).getValue() + "");
                 }
                 result = Double.parseDouble(exp.eval().toPlainString());
 
@@ -49,9 +54,9 @@ public class EvaluateString {
                     for (Variable variable : variableList) {
                         if (evaluateString.split("=")[0].equalsIgnoreCase(variable.getName())) {
                             if (result.intValue() >= variable.getMinvalue() && result.intValue() <= variable.getMaxvalue()) {
-                                Variable variable1=variable;
+                                Variable variable1 = variable;
                                 variable1.setValue(result.intValue());
-                                integerIntegerHashMap.put(evaluateString.split("=")[0],variable1);
+                                integerIntegerHashMap.put(evaluateString.split("=")[0], variable1);
                             }
                         }
                     }
